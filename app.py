@@ -1,10 +1,29 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
 
+# Starts the flask app
 app = Flask(__name__)
 
+# Set up a key and type for the database file
+app.config["SECRETE_KEY"] = "to"
+# Checks if the database file exists
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 
-@app.route("/")
+# Starts the database file in flask
+db = SQLAlchemy(app)
+
+
+@app.route("/", methods=["Get", "POST"])
 def index():
+    # Checks if the user posted the data and then stores the user data
+    if request.method == "POST":
+        first_name = request.form["first_name"]
+        last_name = request.form["last_name"]
+        email = request.form["email"]
+        date = request.form["date"]
+        occupation = request.form["occupation"]
+
+    # Renders the html file
     return render_template("index.html")
 
 
