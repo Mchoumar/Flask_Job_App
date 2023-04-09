@@ -13,6 +13,16 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 db = SQLAlchemy(app)
 
 
+class Form(db.Model):
+    """Setup a table for the database file"""
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(80))
+    last_name = db.Column(db.String(80))
+    email = db.Column(db.String(80))
+    date = db.Column(db.Date)
+    occupation = db.Column(db.String(80))
+
+
 @app.route("/", methods=["Get", "POST"])
 def index():
     # Checks if the user posted the data and then stores the user data
